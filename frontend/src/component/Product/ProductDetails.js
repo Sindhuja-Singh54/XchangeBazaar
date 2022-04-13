@@ -8,6 +8,7 @@ import ReviewCard from './ReviewCard';
 import Loader from '../layout/loader/Loader';
 import { useAlert } from 'react-alert';
 import MetaData from '../layout/Header/MetaData';
+import {addItemsToCart} from "../../actions/cardAction"
 
 const ProductDetails = ({ match }) => {
 	const dispatch = useDispatch();
@@ -21,6 +22,30 @@ const ProductDetails = ({ match }) => {
 		readOnly: true,
 		precision: 0.5
 	};
+
+	
+	const [quantity, setQuantity] = useState(1);
+
+	const increaseQuantity = () => {
+		if (product.Stock <= quantity) return;
+	
+		const qty = quantity + 1;
+		setQuantity(qty);
+	  };
+
+	  const decreaseQuantity = () => {
+		if (1 >= quantity) return;
+	
+		const qty = quantity - 1;
+		setQuantity(qty);
+	  };
+
+	  const addToCartHandler = () => {
+		dispatch(addItemsToCart(match.params.id, quantity));
+		alert.success("Item Added To Cart");
+	  };
+	
+	
 
 	useEffect(
 		() => {
@@ -61,11 +86,11 @@ const ProductDetails = ({ match }) => {
 								<h1>{`₹${product.price}`}</h1>
 								<div className="detailsBlock-3-1">
 									<div className="detailsBlock-3-1-1">
-										<button>-</button>
-										<input type="number" value="1" />
-										<button>+</button>
+										<button onClick={decreaseQuantity}>-</button>
+										<input readOnly type="number" value={quantity} />
+										<button onClick={increaseQuantity}>+</button>
 									</div>
-									<button>Add to Cart</button>
+									<button  onClick={addToCartHandler}>Add to Cart</button>
 								</div>
 
 								<p>

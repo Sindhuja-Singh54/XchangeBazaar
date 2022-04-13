@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, login, register } from '../../actions/UserAction';
 import { useAlert } from 'react-alert';
 
-const LoginSignUp = ({history}) => {
+const LoginSignUp = ({history, location}) => {
 	const dispatch = useDispatch();
 	const alert = useAlert();
 
@@ -93,6 +93,8 @@ const LoginSignUp = ({history}) => {
 		}
 	};
 
+	const redirect = location.search ? location.search.split("=")[1] : "/account";
+
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -100,9 +102,9 @@ const LoginSignUp = ({history}) => {
     }
 
     if (isAuthenticated) {
-      history.push("/account");
+      history.push(redirect);
     }
-  }, [dispatch, error, alert, history, isAuthenticated]);
+  }, [dispatch, error, alert, history, isAuthenticated, redirect]);
 
 	return (
 		<Fragment>
