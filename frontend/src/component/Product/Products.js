@@ -52,8 +52,8 @@ const Products = ({ match }) => {
 				<Loader />
 			) : (
 				<Fragment>
-					<MetaData title="PRODUCTS -- ECOMMERCE" />
-					<h2 className="productsHeading">Products</h2>
+					<MetaData title="Sell -- XchangeBazaar" />
+					<h2 className="productsHeading">Buy</h2>
 
 					<div className="products">
 						{products && products.map((product) => <ProductCard key={product._id} product={product} />)}

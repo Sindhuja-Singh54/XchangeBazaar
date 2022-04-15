@@ -15,6 +15,7 @@ const router = express.Router();
 
 router.route('/products').get(getALLProducts);
 
+
 router.route('/product/new').post(isAuthenticatedUser, authorizeRoles('admin'), createProduct);
 
 router
