@@ -16,7 +16,7 @@ const options = {
     link4Text: "About",
     link1Url: "/",
     link2Url: "/products",
-    link3Url: "/userproduct/new",
+    link3Url: "/newproduct/new",
     link4Url: "/about",
     link1Size: "1.3vmax",
     link1Color: "rgba(35, 35, 35,0.8)",

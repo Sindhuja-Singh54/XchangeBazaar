@@ -10,4 +10,6 @@ router
 	.put(isAuthenticatedUser,userupdateProduct)
     .delete(isAuthenticatedUser, userdeleteProduct);
 
+
+
 module.exports = router;

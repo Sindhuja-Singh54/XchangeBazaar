@@ -16,8 +16,6 @@ exports.usercreateProduct = catchAsyncErrors(async (req, res) => {
 	});
 });
 
-  
-
 //update product - User
 
 exports.userupdateProduct = catchAsyncErrors(async (req, res, next) => {
@@ -53,4 +51,18 @@ exports.userdeleteProduct = catchAsyncErrors(async (req, res, next) => {
 	});
 });
 
+//Get All Products
+exports.getALLUserProducts = catchAsyncErrors(async (req, res, next) => {
+	const resultPerPage = 8;
+	const userproductsCount = await Userproduct.countDocuments();
 
+	const apifeaturs = new Apifeaturs(Userproduct.find({}), req.query).search().filter().pagination(resultPerPage);
+	const userproduct = await apifeaturs.query;
+	
+	res.status(200).json({
+		success: true,
+		userproduct,
+		userproductsCount,
+		resultPerPage,
+	});
+});
