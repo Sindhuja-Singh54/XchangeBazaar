@@ -11,12 +11,12 @@ import {createProduct, clearErrors} from "../../actions/ProductActon"
 
 const categories = [ 'Laptop', 'Footwear', 'Bottom', 'Tops', 'Attire', 'Camera', 'SmartPhones' ];
 
-const Sell = ({history}) => {
+const Sell = ({history, location}) => {
 
 	const dispatch = useDispatch(); 
 	const alert = useAlert();
  
-	const { createproduct } = useSelector((state) => state.createproduct);
+	// const { createproduct } = useSelector((state) => state.createproduct);
 
 	const { loading, isAuthenticated, error } = useSelector((state) => state.createproduct);
 
@@ -34,9 +34,10 @@ const Sell = ({history}) => {
 		price: '',
 		Stock:'',
 		description:'',
+		category:''
 	});
 
-	const { name, number, price,Stock,description } = product;
+	const { name, number, price,Stock,description,category } = product;
 
 	const [ images, setImages] = useState(
 		'https://raw.githubusercontent.com/meabhisingh/mernProjectEcommerce/master/frontend/src/images/Profile.png'
@@ -49,15 +50,16 @@ const Sell = ({history}) => {
 
 		e.preventDefault();
 	
-		const myForm = new FormData();
+		const myProduct = new FormData();
 	
-		myForm.set("name", name);
-		myForm.set("number", number);
-		myForm.set("price", price);
-		myForm.set("Stock", Stock);
-		myForm.set("description", description);
-		myForm.set("images", images);
-		dispatch(createProduct(myForm));
+		myProduct.set("name", name);
+		myProduct.set("number", number);
+		myProduct.set("price", price);
+		myProduct.set("Stock", Stock);
+		myProduct.set("description", description);
+		myProduct.set("category", category);
+		// myProduct.set("images", images);
+		dispatch(createProduct(myProduct));
 	  };
  
 	  const registerDataChange = (e) => {
@@ -104,6 +106,7 @@ const Sell = ({history}) => {
 	// 	}
 	//   }, [dispatch, error, alert, history, user, isUpdated]);
 
+	const redirect = location.search ? location.search.split("=")[1] : "/account";
 
 	useEffect(() => {
 		if (error) {
@@ -114,7 +117,7 @@ const Sell = ({history}) => {
 		// if (isAuthenticated) {
 		//   history.push(redirect);
 		// }
-	  }, [dispatch, error,alert , history, isAuthenticated, ]);
+	  }, [dispatch, error,alert , isAuthenticated,redirect ]);
 	
 	return ( 
 		<Fragment>
@@ -191,7 +194,7 @@ const Sell = ({history}) => {
 							<label for="category">Choose a Category:</label>
 						</div>
 						<div className="updateProfileEmail">
-							<select id="category" name="category">
+							<select id="category" name="category" onClick={registerDataChange}>
 								<option value="trunk">Trunk</option>
 								<option value="lab_coat">Lab coat</option>
 								<option value="book">Book</option>

@@ -6,12 +6,12 @@ const productSchema = new mongoose.Schema({
 		required: [ true, 'Please Enter product Name' ],
 		trim: true
 	},
-	number: {
-		type: Number,
-		required: [ true, 'Please Enter Your Phone No.' ],
-		maxLength: [ 10, 'Number cannot exceed 10 character' ],
-		minLength: [ 10, 'Number cannot exceed 10 character' ]
-	},
+	// number: {
+	// 	type: Number,
+	// 	required: [ true, 'Please Enter Your Phone No.' ],
+	// 	maxLength: [ 10, 'Number cannot exceed 10 character' ],
+	// 	minLength: [ 10, 'Number cannot exceed 10 character' ]
+	// },
 	description: {
 		type: String,
 		required: [ true, 'Please Enter product Description' ]
