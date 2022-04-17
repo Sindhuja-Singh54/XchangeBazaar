@@ -4,7 +4,7 @@ import './Footer.css'
 const Footer = () => {
 	return (
 		<footer id="footer">
-			<div className="leftFooter">
+			{/* <div className="leftFooter">
 				<h4>DOWNLOAD OUR APP</h4>
 				<p>Download App for Android and IOS mobile phone</p>
 				<img
@@ -19,13 +19,21 @@ const Footer = () => {
 					}
 					alt="Appstore"
 				/>
+			</div> */}
+			<div className='leftFooter'>
+			<img
+					src={
+						'https://media.istockphoto.com/vectors/shopping-cart-icon-isolated-on-white-background-vector-id1206806317?k=20&m=1206806317&s=612x612&w=0&h=waK8qOHV2Fgz2ntEWHWBQtXpNDAQ_wdhd4tkTUz6tfE='
+						}
+					
+				/>
 			</div>
 
 			<div className="midFooter">
-				<h1>ECOMMERCE.</h1>
+				<h1>Xchange Bazaar.</h1>
 				<p>High Quality is our first priority</p>
 
-				<p>Copyrights 2021 &copy; MeAbhiSingh</p>
+				<p>Copyrights 2021 &copy; XchangeBazaar</p>
 			</div>
 
 			<div className="rightFooter">

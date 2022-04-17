@@ -241,6 +241,7 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
 	});
 });
 
+
 // Delete User --Admin
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
 	const user = await User.findById(req.params.id);
