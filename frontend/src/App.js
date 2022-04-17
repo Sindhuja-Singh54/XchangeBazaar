@@ -72,7 +72,7 @@ function App() {
 					<ProtectedRoute exact path="/process/payment" component={Payment} />
 				</Elements>
 			)}
-			<Route exact path="/newproduct/new" component={Sell} />
+			<ProtectedRoute exact path="/newproduct/new" component={Sell} />
 			<Footer />
 		</Router>
 	);

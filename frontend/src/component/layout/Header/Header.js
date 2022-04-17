@@ -12,7 +12,6 @@ const options = {
     link1Text: "Home",
     link2Text: "Buy",
     link3Text: "Sell",
-    link4Text: "Contact",
     link4Text: "About",
     link1Url: "/",
     link2Url: "/products",

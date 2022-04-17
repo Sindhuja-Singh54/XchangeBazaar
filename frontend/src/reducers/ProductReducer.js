@@ -5,6 +5,9 @@ import {
 	PRODUCT_DETAILS_REQUEST,
 	PRODUCT_DETAILS_SUCCESS,
 	PRODUCT_DETAILS_FAIL,
+	CREATE_PRODUCT_DETAILS_REQUEST,
+	CREATE_PRODUCT_DETAILS_SUCCESS,
+	CREATE_PRODUCT_DETAILS_FAIL,
 	CLEAR_ERRORS,
 } from '../constants/ProductConstants';
 
@@ -67,3 +70,33 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
 	}
   };
   
+  export const createproductReducer = (state = { products: [] }, 
+	action) => {
+		switch (action.type) {
+			case CREATE_PRODUCT_DETAILS_REQUEST:
+				return {
+					loading: true,
+					isAuthenticated: false
+					// products: []
+				};
+			case CREATE_PRODUCT_DETAILS_SUCCESS:
+				return {
+					loading: false,
+					...state,
+					product: action.payload,
+					isAuthenticated: false
+				};
+			case CREATE_PRODUCT_DETAILS_FAIL:
+				return {
+					loading: false,
+					error: action.payload
+				};
+			case CLEAR_ERRORS:
+				return {
+					...state,
+					error: null
+				};
+			default:
+				return state;
+		}
+	};
