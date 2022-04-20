@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 import MetaData from '../layout/Header/MetaData';
 import {createProduct, clearErrors} from "../../actions/ProductActon"
+import SellSharpIcon from '@mui/icons-material/SellSharp';
+import CurrencyRupeeSharpIcon from '@mui/icons-material/CurrencyRupeeSharp';
+import ImageSharpIcon from '@mui/icons-material/ImageSharp';
 
 
 const categories = [ 'Laptop', 'Footwear', 'Bottom', 'Tops', 'Attire', 'Camera', 'SmartPhones' ];
@@ -15,35 +18,25 @@ const Sell = ({history, location}) => {
 
 	const dispatch = useDispatch(); 
 	const alert = useAlert();
- 
-	// const { createproduct } = useSelector((state) => state.createproduct);
 
 	const { loading, isAuthenticated, error } = useSelector((state) => state.createproduct);
-
-	// const [name, setName] = useState("");
-	// const [number, setNumber] = useState(0);
-	// const [price, setPrice] = useState(0);
-	// const [Stock, setStock] = useState(0);
-	// const [description, setDescription] = useState("");
-	// const [images, setImages] = useState();
-	// const [imagesPreview, setImagesPreview] = useState("/Profile.png");
 	
 	const [ product , setProduct ] = useState({
 		name: '',
-		number: '',
+		// number: '',
 		price: '',
 		Stock:'',
 		description:'',
 		category:''
 	});
 
-	const { name, number, price,Stock,description,category } = product;
+	const { name, price,Stock,description,category } = product;
 
 	const [ images, setImages] = useState(
-		'https://raw.githubusercontent.com/meabhisingh/mernProjectEcommerce/master/frontend/src/images/Profile.png'
+		'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQswyS9t5Kk8qLSukr6FqtJlyGgQ8N22WoxZQ&usqp=CAU'
 	);
 	const [ imagesPreview, setImagesPreview ] = useState(
-		'https://raw.githubusercontent.com/meabhisingh/mernProjectEcommerce/master/frontend/src/images/Profile.png'
+		'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQswyS9t5Kk8qLSukr6FqtJlyGgQ8N22WoxZQ&usqp=CAU'
 	); 
 
 	const createProductSubmit = (e) => {
@@ -53,17 +46,18 @@ const Sell = ({history, location}) => {
 		const myProduct = new FormData();
 	
 		myProduct.set("name", name);
-		myProduct.set("number", number);
+		// myProduct.set("number", number);
 		myProduct.set("price", price);
 		myProduct.set("Stock", Stock);
 		myProduct.set("description", description);
 		myProduct.set("category", category);
-		// myProduct.set("images", images);
+		myProduct.set("images", images);
+		console.log("sign up form submitted");
 		dispatch(createProduct(myProduct));
 	  };
  
 	  const registerDataChange = (e) => {
-		if (e.target.name === 'avatar') {
+		if (e.target.name === 'images') {
 			const reader = new FileReader();
 
 			reader.onload = () => {
@@ -79,45 +73,21 @@ const Sell = ({history, location}) => {
 		}
 	};
 
-	//   useEffect(() => {
-	// 	if (product) {
-	// 		setName(product.name);
-	// 		setNumber(product.number);
-	// 		setPrice(product.price);
-	// 		setStock(product.Stock);
-	// 		setDescription(product.description);
-	// 		setImagesPreview(product.images.url);
-	// 	}
-	
-	// 	if (error) {
-	// 	  alert.error(error);
-	// 	  dispatch(clearErrors());
-	// 	}
-	
-	// 	if (isUpdated) {
-	// 	  alert.success("Profile Updated Successfully");
-	// 	  dispatch(loadUser());
-	
-	// 	  history.push("/");
-	
-	// 	  dispatch({
-	// 		type: UPDATE_PROFILE_RESET,
-	// 	  });
-	// 	}
-	//   }, [dispatch, error, alert, history, user, isUpdated]);
+
 
 	const redirect = location.search ? location.search.split("=")[1] : "/account";
 
 	useEffect(() => {
-		if (error) {
-		  alert.error(error);
-		  dispatch(clearErrors());
-		}
-	
-		// if (isAuthenticated) {
-		//   history.push(redirect);
-		// }
-	  }, [dispatch, error,alert , isAuthenticated,redirect ]);
+	  if (error) {
+		alert.error(error);
+		dispatch(clearErrors());
+	  }
+  
+	  if (isAuthenticated) {
+		history.push(redirect);
+	  }
+	}, [dispatch, error, alert, history, isAuthenticated, redirect]);
+
 	
 	return ( 
 		<Fragment>
@@ -129,14 +99,15 @@ const Sell = ({history, location}) => {
 			<div className="SellContainer">
 				<div className="updateProfileBox">
 					<h2 className="updateProfileHeading">Sell</h2>
-
+					<div className="SellForm" >
+					<img  className="SellImage" src={imagesPreview} alt="images Preview" />
 					<form
 						className="updateProfileForm"
 						encType="multipart/form-data"
 						onSubmit={createProductSubmit}
 					>
 						<div className="updateProfileName">
-							<FaceIcon />
+							<SellSharpIcon />
 							<input
 								type="text"
 								placeholder="Product Name"
@@ -146,7 +117,7 @@ const Sell = ({history, location}) => {
 								onChange={registerDataChange}							
 								/>
 						</div>
-						<div className="updateProfileEmail">
+						{/* <div className="updateProfileEmail">
 							<MailOutlineIcon />
 							<input
 								type="Number"
@@ -156,8 +127,9 @@ const Sell = ({history, location}) => {
 								value={number}
 								onChange={registerDataChange}	
 							/>
-						</div>
+						</div> */}
 						<div className="updateProfileEmail">
+							<CurrencyRupeeSharpIcon/>
 							<input
 								type="text"
 								maxLength={4}
@@ -206,18 +178,22 @@ const Sell = ({history, location}) => {
 								<option value="attire">Other</option>
 							</select>
 						</div>
-
+{/* 
 						<div id="updateProfileImage">
-							{/* <img src={avatarPreview} alt="Avatar Preview" /> */}
+							<img src={avatarPreview} alt="Avatar Preview" />
 							<input
 								type="file"
 								name="images"
 								accept="image/*"
-								// onChange={updateProfileDataChange}
+								onChange={registerDataChange}
 							/>
+						</div> */}
+						<div id="registerImage">
+							<input type="file" name="images" accept="image/*" onChange={registerDataChange} />
 						</div>
-						<input type="submit" value="Submit" className="updateProfileBtn" />
 					</form>
+					</div>
+					<input type="submit" value="createProduct" className="updateProfileBtn" />
 				</div>
 			</div>
 		</Fragment>

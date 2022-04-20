@@ -11,10 +11,18 @@
     left: 0;
   }
   
+  .SellForm{
+    display: flex;
+  }
+
+  .SellImage{
+    width:40%;
+  }
+
   .updateProfileBox {
     background-color: white;
     width: 50vw;
-    height: 95vh;
+    height: 80vh;
     box-sizing: border-box;
     overflow: hidden;
   }
@@ -30,6 +38,7 @@
   }
   
   .updateProfileForm {
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -116,11 +125,12 @@
   }
   
   .updateProfileBtn {
+    margin: 0% 3% 0% 3%;
     border: none;
     background-color: tomato;
     color: white;
     font: 300 0.9vmax "Roboto";
-    width: 100%;
+    width: 94%;
     padding: 0.8vmax;
     cursor: pointer;
     transition: all 0.5s;
@@ -169,4 +179,13 @@
       font: 300 1.9vmax "Roboto";
       padding: 1.8vmax;
     }
+  }
+
+  #registerImage > img {
+    width: 3vmax;
+    border-radius: 100%;
+  }
+  #registerImage > input {
+    display: flex;
+    padding: 0%;
   }
