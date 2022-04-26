@@ -1,25 +1,25 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import './Sell.css';
 import Loader from '../layout/loader/Loader';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import FaceIcon from '@material-ui/icons/Face';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 import MetaData from '../layout/Header/MetaData';
 import {createProduct, clearErrors} from "../../actions/ProductActon"
 import SellSharpIcon from '@mui/icons-material/SellSharp';
 import CurrencyRupeeSharpIcon from '@mui/icons-material/CurrencyRupeeSharp';
-import ImageSharpIcon from '@mui/icons-material/ImageSharp';
+import { CREATE_PRODUCT_DETAILS_RESET } from '../../constants/ProductConstants';
+import { Link } from 'react-router-dom';
 
+// const categories = [ 'Laptop', 'Footwear', 'Bottom', 'Tops', 'Attire', 'Camera', 'SmartPhones' ];
 
-const categories = [ 'Laptop', 'Footwear', 'Bottom', 'Tops', 'Attire', 'Camera', 'SmartPhones' ];
 
 const Sell = ({history, location}) => {
 
 	const dispatch = useDispatch(); 
 	const alert = useAlert();
 
-	const { loading, isAuthenticated, error } = useSelector((state) => state.createproduct);
+
+	const { loading, isAuthenticated, error ,success} = useSelector((state) => state.createproduct);
 	
 	const [ product , setProduct ] = useState({
 		name: '',
@@ -27,8 +27,11 @@ const Sell = ({history, location}) => {
 		price: '',
 		Stock:'',
 		description:'',
-		category:''
+		category:'',
+		images:[]
 	});
+
+	const [ loadinge , setloadinge ] = useState(false);
 
 	const { name, price,Stock,description,category } = product;
 
@@ -52,7 +55,7 @@ const Sell = ({history, location}) => {
 		myProduct.set("description", description);
 		myProduct.set("category", category);
 		myProduct.set("images", images);
-		console.log("sign up form submitted");
+		console.log("product submitted");
 		dispatch(createProduct(myProduct));
 	  };
  
@@ -63,7 +66,7 @@ const Sell = ({history, location}) => {
 			reader.onload = () => {
 				if (reader.readyState === 2) {
 					setImagesPreview(reader.result);
-					imagesPreview(reader.result);
+					setImages(reader.result);
 				}
 			};
 
@@ -75,18 +78,33 @@ const Sell = ({history, location}) => {
 
 
 
-	const redirect = location.search ? location.search.split("=")[1] : "/account";
+	// const redirect = location.search ? location.search.split("=")[1] : "/account";
+
+	// useEffect(() => {
+	//   if (error) {
+	// 	alert.error(error);
+	// 	dispatch(clearErrors());
+	//   }
+  
+	//   if (isAuthenticated) {
+	// 	history.push(redirect);
+	//   }
+	// }, [dispatch, error, alert, history, isAuthenticated, redirect]);
 
 	useEffect(() => {
-	  if (error) {
-		alert.error(error);
-		dispatch(clearErrors());
-	  }
-  
-	  if (isAuthenticated) {
-		history.push(redirect);
-	  }
-	}, [dispatch, error, alert, history, isAuthenticated, redirect]);
+		if (error) {
+		  alert.error(error); 
+		  dispatch(clearErrors());
+		}
+		// if (success) { 
+		//   alert.success("Product is Create Successfully");
+		// 	history.push("/products");
+	
+		//   dispatch({
+		// 	type: CREATE_PRODUCT_DETAILS_RESET,
+		//   });
+		// }
+	  }, [dispatch, error, alert, history, CREATE_PRODUCT_DETAILS_RESET,isAuthenticated]);
 
 	
 	return ( 
@@ -163,6 +181,16 @@ const Sell = ({history, location}) => {
 							/>
 						</div>
 						<div className="updateProfileEmail">
+							<input
+								type="text" 
+								placeholder="Category"
+								required
+								name="category"
+								value={category}
+								onChange={registerDataChange}	
+							/>
+						</div>
+						{/* <div className="updateProfileEmail">
 							<label for="category">Choose a Category:</label>
 						</div>
 						<div className="updateProfileEmail">
@@ -177,7 +205,7 @@ const Sell = ({history, location}) => {
 								<option value="attire">Attire</option>
 								<option value="attire">Other</option>
 							</select>
-						</div>
+						</div> */}
 {/* 
 						<div id="updateProfileImage">
 							<img src={avatarPreview} alt="Avatar Preview" />
@@ -187,13 +215,17 @@ const Sell = ({history, location}) => {
 								accept="image/*"
 								onChange={registerDataChange}
 							/>
-						</div> */}
+						</div> */} 
+						{JSON.stringify(product.images)}
 						<div id="registerImage">
+							{/* <Fileuplode values={product} setValues={setProduct} setLoading={setloadinge} /> */}
 							<input type="file" name="images" accept="image/*" onChange={registerDataChange} />
 						</div>
+						{/* <Link to="/products"> */}
+							<input type="submit" value="CreateProduct" className="updateProfileBtn" />
+							 {/* </Link> */}
 					</form>
 					</div>
-					<input type="submit" value="createProduct" className="updateProfileBtn" />
 				</div>
 			</div>
 		</Fragment>

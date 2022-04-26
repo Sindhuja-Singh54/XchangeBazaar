@@ -10,6 +10,7 @@ const {
 	deleteReview,
 } = require('../controllers/productController');
 const { isAuthenticatedUser, authorizeRoles } = require('../middleware/auth');
+const { upload, remove } = require("../controllers/Cloundinary");
 
 const router = express.Router();
 
@@ -39,5 +40,9 @@ router
   .route("/reviews")
   .get(getProductReviews)
   .delete(isAuthenticatedUser, deleteReview);
+
+
+router.post("/uploadimages", isAuthenticatedUser, authorizeRoles('admin'),  upload);
+router.post("/removeimage", isAuthenticatedUser, authorizeRoles('admin'), remove);
 
 module.exports = router;

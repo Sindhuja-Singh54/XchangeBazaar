@@ -16,7 +16,8 @@
   }
 
   .SellImage{
-    width:40%;
+    width:38%;
+    margin: 0 2%;
   }
 
   .updateProfileBox {
@@ -125,12 +126,12 @@
   }
   
   .updateProfileBtn {
-    margin: 0% 3% 0% 3%;
+    margin: 3% 0%;
     border: none;
     background-color: tomato;
     color: white;
     font: 300 0.9vmax "Roboto";
-    width: 94%;
+    width: 100%;
     padding: 0.8vmax;
     cursor: pointer;
     transition: all 0.5s;
