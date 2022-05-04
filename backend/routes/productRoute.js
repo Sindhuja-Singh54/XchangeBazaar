@@ -14,6 +14,8 @@ const { upload, remove } = require("../controllers/Cloundinary");
 
 const router = express.Router();
 
+router.route('/upload').post(upload);
+
 router.route('/products').get(getALLProducts);
 
 router.route('/newproduct/new').post(isAuthenticatedUser, createProduct);

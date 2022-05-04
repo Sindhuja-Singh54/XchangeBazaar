@@ -5,12 +5,24 @@ const catchAsyncErrors = require('../middleware/catchAsyncError');
 const Apifeaturs = require('../utils/apifeatures');
 const cloudinary = require('cloudinary');
 
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+
 // Create Product-Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-	const myCloud = await cloudinary.v2.uploader.upload(req.body.images, {
-		folder: 'images',
-		width: 150,
-		crop: 'scale'
+	// const myCloud = await cloudinary.v2.uploader.upload(req.body.images, {
+	// 	folder: 'images',
+	// 	width: 150,
+	// 	crop: 'scale'
+	// });
+
+	let result = await cloudinary.v2.uploader.upload(req.body.images, {
+		public_id: `${Date.now()}`,
+		resource_type: 'auto' // jpeg, png
 	});
 
 	const { name, price, Stock, description, category } = req.body;
@@ -20,10 +32,10 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 		Stock,
 		description,
 		category,
-		images: {
-			public_id: myCloud.public_id,
-			url: myCloud.secure_url
-		}
+		images: [{
+			public_id: result.public_id,
+			url: result.secure_url
+		}]
 	});
 	res.status(201).json({
 		success: true,
